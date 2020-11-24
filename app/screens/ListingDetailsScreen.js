@@ -1,13 +1,17 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Image } from "react-native-expo-image-cache";
 import { ScrollView } from "react-native-gesture-handler";
 import AppText from "../components/AppText";
 import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 
-export default function ListingDetailsScreen({ route: { params: { item : listing }} }) {
-
+export default function ListingDetailsScreen({
+  route: {
+    params: { item: listing },
+  },
+}) {
   const { image, price, title } = listing;
 
   return (
@@ -15,8 +19,9 @@ export default function ListingDetailsScreen({ route: { params: { item : listing
       <Screen>
         <Image
           style={styles.image}
-          resizeMode="cover"
-          source={image}
+          preview={{ uri: listing.images[0].thumbnailUrl }}
+          uri={listing.images[0].url}
+          tint="light"
         />
         <View style={styles.detailsContainer}>
           <AppText style={styles.title}>{title}</AppText>

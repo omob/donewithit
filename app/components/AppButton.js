@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     textTransform: "uppercase",
-    textAlign: "center"
+    textAlign: "center",
   },
 });
 

@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
-import React, { useState } from "react";
 import { AppLoading } from "expo";
+import React, { useState } from "react";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import OfflineNotice from "./app/components/OfflineNotice";
@@ -31,6 +31,4 @@ export default function App() {
       </NavigationContainer>
     </AuthContext.Provider>
   );
-
-  return null;
 }

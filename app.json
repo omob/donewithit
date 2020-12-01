@@ -17,6 +17,9 @@
     "ios": {
       "supportsTablet": true
     },
+    "notification": {
+      "iosDisplayInForeground": true
+    },
     "web": {
       "favicon": "./app/assets/favicon.png"
     }

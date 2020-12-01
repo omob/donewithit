@@ -1,8 +1,9 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 import { ScrollView } from "react-native-gesture-handler";
 import AppText from "../components/AppText";
+import ContactSeller from "../components/ContactSeller";
 import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
@@ -15,34 +16,34 @@ export default function ListingDetailsScreen({
   const { image, price, title } = listing;
 
   return (
-    <ScrollView>
-      <Screen>
-        <Image
-          style={styles.image}
-          preview={{ uri: listing.images[0].thumbnailUrl }}
-          uri={listing.images[0].url}
-          tint="light"
-        />
-        <View style={styles.detailsContainer}>
-          <AppText style={styles.title}>{title}</AppText>
-          <AppText style={styles.price}>${price} </AppText>
+    <KeyboardAvoidingView
+      behavior="position"
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
+    >
+      <ScrollView>
+        <Screen>
+          <Image
+            style={styles.image}
+            preview={{ uri: listing.images[0].thumbnailUrl }}
+            uri={listing.images[0].url}
+            tint="light"
+          />
+          <View style={styles.detailsContainer}>
+            <AppText style={styles.title}>{title}</AppText>
+            <AppText style={styles.price}>${price} </AppText>
 
-          <View style={styles.userContainer}>
-            <ListItem
-              image={require("../assets/mosh.jpg")}
-              title="Mosh Hamedani"
-              subTitle="5 Listings"
-            ></ListItem>
-
-            <ListItem
-              image={require("../assets/mosh.jpg")}
-              title="Mosh Hamedani"
-              subTitle="5 Listings"
-            ></ListItem>
+            <View style={styles.userContainer}>
+              <ListItem
+                image={require("../assets/mosh.jpg")}
+                title="Mosh Hamedani"
+                subTitle="5 Listings"
+              ></ListItem>
+              <ContactSeller listing={listing} />
+            </View>
           </View>
-        </View>
-      </Screen>
-    </ScrollView>
+        </Screen>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

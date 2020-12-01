@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Image, StyleSheet } from "react-native";
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+} from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import * as Yup from "yup";
 import authApi from "../api/auth";
 import useAuth from "../auth/useAuth";
@@ -30,40 +36,50 @@ export default function LoginScreen() {
   };
 
   return (
-    <Screen style={{ padding: 10 }}>
-      <Image style={styles.logo} source={require("../assets/logo-red.png")} />
+    <KeyboardAvoidingView
+      behavior="position"
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
+    >
+      <ScrollView>
+        <Screen style={{ padding: 10 }}>
+          <Image
+            style={styles.logo}
+            source={require("../assets/logo-red.png")}
+          />
 
-      <AppForm
-        initialValues={{ email: "", password: "" }}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
-        <AppErrorMessage
-          error="Invalid email or password"
-          visible={loginFailed}
-        />
-        <AppFormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="email"
-          keyboardType="email-address"
-          name="email"
-          placeholder="Email"
-          textContentType="emailAddress"
-        />
-        <AppFormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="lock"
-          name="password"
-          placeholder="Password"
-          secureTextEntry
-          textContentType="password"
-        />
+          <AppForm
+            initialValues={{ email: "", password: "" }}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            <AppErrorMessage
+              error="Invalid email or password"
+              visible={loginFailed}
+            />
+            <AppFormField
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon="email"
+              keyboardType="email-address"
+              name="email"
+              placeholder="Email"
+              textContentType="emailAddress"
+            />
+            <AppFormField
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon="lock"
+              name="password"
+              placeholder="Password"
+              secureTextEntry
+              textContentType="password"
+            />
 
-        <SubmitButton title="login" />
-      </AppForm>
-    </Screen>
+            <SubmitButton title="login" />
+          </AppForm>
+        </Screen>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

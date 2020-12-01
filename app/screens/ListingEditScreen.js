@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import * as Yup from "yup";
 
 import CategoryPickerItem from "../components/CategoryPickerItem";
@@ -109,49 +115,55 @@ export default function ListingEditScreen() {
   };
 
   return (
-    <Screen>
-      <UploadScreen
-        visible={showUploadModal}
-        progress={progress}
-        onAnimationFinish={() => setShowUploadModal(false)}
-      />
-      <ScrollView>
-        <View style={{ padding: 20, marginTop: 20, paddingBottom: 100 }}>
-          <AppForm
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-          >
-            <AppFormImagePicker name="images" />
-            <AppFormField maxLength={255} name="title" placeholder="Title" />
-            <AppFormField
-              keyboardType="numeric"
-              maxLength={8}
-              name="price"
-              placeholder="Price"
-              width={150}
-            />
-            <AppFormPicker
-              items={categories}
-              name="category"
-              numberOfColumns={3}
-              PickerItemComponent={CategoryPickerItem}
-              placeholder="Category"
-              width={"50%"}
-            />
-            <AppFormField
-              maxLength={255}
-              multiline
-              name="description"
-              numberOfLines={3}
-              placeholder="Description"
-            />
+    <ScrollView>
+      <Screen>
+        <UploadScreen
+          visible={showUploadModal}
+          progress={progress}
+          onAnimationFinish={() => setShowUploadModal(false)}
+        />
 
-            <SubmitButton title="Post" />
-          </AppForm>
+        <View style={{ padding: 20, marginTop: 20, paddingBottom: 100 }}>
+          <KeyboardAvoidingView
+            behavior="position"
+            keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
+          >
+            <AppForm
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+            >
+              <AppFormImagePicker name="images" />
+              <AppFormField maxLength={255} name="title" placeholder="Title" />
+              <AppFormField
+                keyboardType="numeric"
+                maxLength={8}
+                name="price"
+                placeholder="Price"
+                width={150}
+              />
+              <AppFormPicker
+                items={categories}
+                name="category"
+                numberOfColumns={3}
+                PickerItemComponent={CategoryPickerItem}
+                placeholder="Category"
+                width={"50%"}
+              />
+
+              <AppFormField
+                maxLength={255}
+                multiline
+                name="description"
+                numberOfLines={3}
+                placeholder="Description"
+              />
+              <SubmitButton title="Post" />
+            </AppForm>
+          </KeyboardAvoidingView>
         </View>
-      </ScrollView>
-    </Screen>
+      </Screen>
+    </ScrollView>
   );
 }
 
